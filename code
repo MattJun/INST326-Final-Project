@@ -41,8 +41,10 @@ for i in range(2, dataframe1.max_row + 1):
     row_num = 3
     name = dataframe1.cell(i, 1).value
    
-   #this class is suppose to initialize dataframe, sheet, and name
-    class ScheduleChecker:
+   
+"""this class is suppose to initialize dataframe, sheet, and name"""
+class ScheduleChecker:
+    """The __init__ method uses the parameters dataframe, sheet, and name."""
     def __init__(self, dataframe, sheet, name):
         self.dataframe = dataframe
         self.sheet = sheet
@@ -123,7 +125,7 @@ for i in range(2, dataframe1.max_row + 1):
             if self.dataframe.cell(i, 7).value == "Y":
                 self.sheet.cell(self.row_num, 5).value = self.name
                 
-         if hour == "3":
+        if hour == "3":
             if self.dataframe.cell(i, 4).value == "Y":
                 self.sheet.cell(self.row_num, 2).value = self.name
             if self.dataframe.cell(i, 5).value == "Y":
@@ -134,7 +136,7 @@ for i in range(2, dataframe1.max_row + 1):
                 self.sheet.cell(self.row_num, 5).value = self.name
                 
                 
-         if hour == "5":
+        if hour == "5":
             if self.dataframe.cell(i, 4).value == "Y":
                 self.sheet.cell(self.row_num, 2).value = self.name
             if self.dataframe.cell(i, 5).value == "Y":
