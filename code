@@ -1,0 +1,162 @@
+import openpyxl
+from openpyxl import Workbook
+
+#the input excel sheet
+dataframe = openpyxl.load_workbook('Schedule.xlsx')
+dataframe1 = dataframe.active
+
+#Creating a sheet within the workbook (this is the output excel file)
+wb = Workbook()
+wb.save("FinalSchedule.xlsx")
+sheet1 = wb.create_sheet(index = 0, title = "Week Schedule")
+wb.save("FinalSchedule.xlsx")
+
+#header row for the Ouput Excel Sheet
+sheet1['B1'] = "Monday"
+sheet1['C1'] = "Tuesday"
+sheet1['D1'] = "Wednesday"
+sheet1['E1'] = "Thursday"
+sheet1['F1'] = "Friday"
+
+#Writing the Time Slots in the Ouput Excel Sheet
+sheet1.cell(2, 1).value = "Times"
+sheet1.cell(3, 1).value = "9:00"
+sheet1.cell(4, 1).value = "10:00"
+sheet1.cell(5, 1).value = "11:00"
+sheet1.cell(6, 1).value = "12:00"
+sheet1.cell(7, 1).value = "1:00"
+sheet1.cell(8, 1).value = "2:00"
+sheet1.cell(9, 1).value = "3:00"
+sheet1.cell(10, 1).value = "4:00"
+sheet1.cell(11, 1).value = "5:00"
+
+
+#Reads input excel file, and writes name of person with that available time & day
+#This code does not check for overlaps in available times
+for i in range(2, dataframe1.max_row + 1):
+  for j in range(3, dataframe1.max_column + 1):
+   
+    stg = str(dataframe1.cell(i, j).value)
+    list = stg.split("-")
+    row_num = 3
+    name = dataframe1.cell(i, 1).value
+   
+    for x in list:
+      row_num = 3
+      #checking 9:00am    
+      if x == "9":
+        if dataframe1.cell(i, 4).value == "Y":
+            sheet1.cell(row_num, 2).value = name
+        if dataframe1.cell(i, 5).value == "Y":
+            sheet1.cell(row_num, 3).value = name
+        if dataframe1.cell(i, 6).value == "Y":
+            sheet1.cell(row_num, 4).value = name
+        if dataframe1.cell(i, 7).value == "Y":
+            sheet1.cell(row_num, 5).value = name
+        if dataframe1.cell(i, 8).value == "Y":
+            sheet1.cell(row_num, 6).value = name
+      row_num += 1
+      #checking 10:00am
+      if x == "10":
+        if dataframe1.cell(i, 4).value == "Y":
+            sheet1.cell(row_num, 2).value = name
+        if dataframe1.cell(i, 5).value == "Y":
+            sheet1.cell(row_num, 3).value = name
+        if dataframe1.cell(i, 6).value == "Y":
+            sheet1.cell(row_num, 4).value = name
+        if dataframe1.cell(i, 7).value == "Y":
+            sheet1.cell(row_num, 5).value = name
+        if dataframe1.cell(i, 8).value == "Y":
+            sheet1.cell(row_num, 6).value = name      
+      row_num += 1
+      #checking 11:00am
+      if x == "11":
+        if dataframe1.cell(i, 4).value == "Y":
+            sheet1.cell(row_num, 2).value = name
+        if dataframe1.cell(i, 5).value == "Y":
+            sheet1.cell(row_num, 3).value = name
+        if dataframe1.cell(i, 6).value == "Y":
+            sheet1.cell(row_num, 4).value = name
+        if dataframe1.cell(i, 7).value == "Y":
+            sheet1.cell(row_num, 5).value = name
+        if dataframe1.cell(i, 8).value == "Y":
+            sheet1.cell(row_num, 6).value = name
+      row_num += 1
+      #Checking 12:00am      
+      if x == "12":
+        if dataframe1.cell(i, 4).value == "Y":
+            sheet1.cell(row_num, 2).value = name
+        if dataframe1.cell(i, 5).value == "Y":
+            sheet1.cell(row_num, 3).value = name
+        if dataframe1.cell(i, 6).value == "Y":
+            sheet1.cell(row_num, 4).value = name
+        if dataframe1.cell(i, 7).value == "Y":
+            sheet1.cell(row_num, 5).value = name
+        if dataframe1.cell(i, 8).value == "Y":
+            sheet1.cell(row_num, 6).value = name
+      row_num += 1
+      #checking 1:00pm
+      if x == "1":
+        if dataframe1.cell(i, 4).value == "Y":
+            sheet1.cell(row_num, 2).value = name
+        if dataframe1.cell(i, 5).value == "Y":
+            sheet1.cell(row_num, 3).value = name
+        if dataframe1.cell(i, 6).value == "Y":
+            sheet1.cell(row_num, 4).value = name
+        if dataframe1.cell(i, 7).value == "Y":
+            sheet1.cell(row_num, 5).value = name
+        if dataframe1.cell(i, 8).value == "Y":
+            sheet1.cell(row_num, 6).value = name
+      row_num += 1
+      #checking 2:00pm
+      if x == "2":
+        if dataframe1.cell(i, 4).value == "Y":
+            sheet1.cell(row_num, 2).value = name
+        if dataframe1.cell(i, 5).value == "Y":
+            sheet1.cell(row_num, 3).value = name
+        if dataframe1.cell(i, 6).value == "Y":
+            sheet1.cell(row_num, 4).value = name
+        if dataframe1.cell(i, 7).value == "Y":
+            sheet1.cell(row_num, 5).value = name
+        if dataframe1.cell(i, 8).value == "Y":
+            sheet1.cell(row_num, 6).value = name
+      row_num += 1
+      #checking 3:00pm
+      if x == "3":
+        if dataframe1.cell(i, 4).value == "Y":
+            sheet1.cell(row_num, 2).value = name
+        if dataframe1.cell(i, 5).value == "Y":
+            sheet1.cell(row_num, 3).value = name
+        if dataframe1.cell(i, 6).value == "Y":
+            sheet1.cell(row_num, 4).value = name
+        if dataframe1.cell(i, 7).value == "Y":
+            sheet1.cell(row_num, 5).value = name
+        if dataframe1.cell(i, 8).value == "Y":
+            sheet1.cell(row_num, 6).value = name        
+      row_num += 1
+      #checking 4:00pm
+      if x == "4":
+        if dataframe1.cell(i, 4).value == "Y":
+            sheet1.cell(row_num, 2).value = name
+        if dataframe1.cell(i, 5).value == "Y":
+            sheet1.cell(row_num, 3).value = name
+        if dataframe1.cell(i, 6).value == "Y":
+            sheet1.cell(row_num, 4).value = name
+        if dataframe1.cell(i, 7).value == "Y":
+            sheet1.cell(row_num, 5).value = name
+        if dataframe1.cell(i, 8).value == "Y":
+            sheet1.cell(row_num, 6).value = name
+      row_num += 1
+      #checking 5:00pm
+      if x == "5":
+        if dataframe1.cell(i, 4).value == "Y":
+            sheet1.cell(row_num, 2).value = name
+        if dataframe1.cell(i, 5).value == "Y":
+            sheet1.cell(row_num, 3).value = name
+        if dataframe1.cell(i, 6).value == "Y":
+            sheet1.cell(row_num, 4).value = name
+        if dataframe1.cell(i, 7).value == "Y":
+            sheet1.cell(row_num, 5).value = name
+        if dataframe1.cell(i, 8).value == "Y":
+            sheet1.cell(row_num, 6).value = name
+wb.save('FinalSchedule1.xlsx')
