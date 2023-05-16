@@ -1,0 +1,6 @@
+For the code to work, you need to download Schedule.xlsx which can be found in our links on this GitHub.
+
+If you are adding someone to the schedule, you must seperate the times they can work with a comma. so if you want to work
+from 9-11; you must write "9,10,11."
+
+In order for the test to work you must run it with an unchanged schedule, without having added anyone to it.
