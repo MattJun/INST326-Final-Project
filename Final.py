@@ -13,7 +13,7 @@ the person creating the schedule wants to add someone """
 
 class People:
     
-    """__init__ initializes filename"""
+    """__init__ initializes filename and userAnswer"""
     
     def __init__(self, filename = "Schedule.xlsx", userAnswer = ""): #Driver:Dan  Navigator: Arianna
         self.filename = filename
