@@ -1,20 +1,86 @@
 import openpyxl
 from openpyxl import Workbook
 
+
+"""This class is used to create people to add to the schedule if 
+the person creating the schedule wants to add someone """
+
+class People:
+    
+    """__init__ initializes filename"""
+    
+    def __init__(self, filename = "Schedule.xlsx"): #Driver:Dan  Navigator: Arianna
+        self.filename = filename
+
+
+    """add_person function checks if the workbook exists, 
+    then writes in the workbook. This function then prompts the user in the console
+    if they would like to add someone to the schedule, asking what time they can work
+    along with asking which day they are available, marking a Y or N depending if that person can work or not.
+    
+    -Purpose is for business owner or schedule maker to update the schedule without the need
+    to go to the excelsheet to do it manually"""
+
+    def add_person(self): #Driver: Jennifer  Navigator: Matt
+        try:
+            workbook = openpyxl.load_workbook(self.filename)
+        except FileNotFoundError:
+            workbook = openpyxl.Workbook("Schedule.xlsx")
+
+        sheet = workbook.active
+        availability = []
+        days_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+        print("would you like to add someone to the schedule?")
+        userAnswer = input("yes or no: ")
+        
+        while userAnswer != "no":
+            name = input("Enter Name: ")
+            number = input("Time he/she can work:")
+        
+            for day in days_of_week:
+                answer = input(f"Is {name} available on {day}? (Y/N): ")
+                availability.append("Y" if answer.upper() == 'Y' else '')
+
+            sheet.append([name,"", number] + availability)
+
+            workbook.save(self.filename)
+            workbook.close()
+            print(f"Person '{name}' added to the Excel sheet '{self.filename}'.")
+            
+            userAnswer = input("Would you like to add again?")
+            if userAnswer =="no":
+                print("Thank you for using!")
+            
+
+people = People("Schedule.xlsx")
+people.add_person()
+            
+
+"""This class reads an availability sheet, and writes a schedule for a week"""
+
+
 class ScheduleMaker:
-    def __init__(self, input_filename="Schedule.xlsx"):
+    
+    """This __init__ function initalizes dataframe, dataframe1, wb, and sheet1"""
+    
+    def __init__(self, input_filename="Schedule.xlsx"): #Driver: Arianna  Navigator: Jennifer
         self.dataframe = openpyxl.load_workbook("Schedule.xlsx")
         self.dataframe1 = self.dataframe.active
         self.wb = Workbook()
         self.sheet1 = self.wb.active
         print("Creating ScheduleMaker object")
 
-    def create_output_sheet(self):
+    """The function create_output_sheet creates a sheet within the workbook for the schedule to be written"""
+
+    def create_output_sheet(self): #Driver: Dan  Navigator: Matt
         self.sheet1 = self.wb.create_sheet(index=0, title="schedule")
-        self.wb.save("May_8.xlsx")
+        self.wb.save("May_11.xlsx")
         print("Creating output sheet")
 
-    def write_header(self):
+    """The write_header function is used to write down the header of the schedule, 
+    having the days of the week layed out on the top row."""
+
+    def write_header(self): #Driver: Arianna  Navigator: Dan
         self.sheet1.cell(row=1, column=2).value = "Monday"
         self.sheet1.cell(row=1, column=3).value = "Tuesday"
         self.sheet1.cell(row=1, column=4).value = "Wednesday"
@@ -22,7 +88,10 @@ class ScheduleMaker:
         self.sheet1.cell(row=1, column=6).value = "Friday"
         print("Wrote headers")
 
-    def write_time_slots(self):
+    """The write_time_slots function is used to go down the row and write the different times
+    an employee can work for the schedule."""
+
+    def write_time_slots(self): #Driver: Matt  Navigator: Dan
         self.sheet1.cell(row=2, column=1).value = "Times"
         self.sheet1.cell(row=3, column=1).value = "9:00"
         self.sheet1.cell(row=4, column=1).value = "10:00"
@@ -35,16 +104,17 @@ class ScheduleMaker:
         self.sheet1.cell(row=11, column=1).value = "5:00"
         print("Wrote time slots")
     
+    """This function is used to read the availability sheet, and then determine if the employee put a certain time, and a "Y" on
+    the availability sheet, then with that information write it on the the new schedule, determining when that employee can work """
 
-
-    def write_schedule(self):
+    def write_schedule(self): #Driver:Matt  Navigator: Jennifer
         for i in range(2, self.dataframe1.max_row + 1):
             for j in range(3, self.dataframe1.max_column + 1):
-                stg = str(self.dataframe1.cell(i, j).value)
-                list = stg.split("-")
+                stg = str(self.dataframe1.cell(i, j).value) # The i, j is the location in the excel sheet. i is the row, and j is the column.
+                list = stg.split(",")
                 row_num = 3
                 name = self.dataframe1.cell(i, 1).value
-                for x in list:
+                for x in list: #the x is the times for each person. 
                   row_num = 3
                   #checking 9:00am    
                   if x == "9":
@@ -163,24 +233,20 @@ class ScheduleMaker:
                     if self.dataframe1.cell(i, 8).value == "Y":
                         self.sheet1.cell(row_num, 6).value = name
     print("wrote schedule")
-#def getworkbook(self):                       
-#     filename = "may_8.xlsx"
- #    self.wb.save(filename)
-  #   print(filename)   
-                                         
+                   
        
+"""This main function is used to individually run each function within each of the classes. 
+Then save the schedule on the user's device"""
 
-
-def main():
+def main(): #Driver: Jennifer  Navigator:Arianna
     currSchedule = ScheduleMaker("Schedule.xlsx")
     currSchedule.create_output_sheet()
     currSchedule.write_header()
     currSchedule.write_time_slots()
     currSchedule.write_schedule() 
-    currSchedule.wb.save("May_8.xlsx")
-    
+    currSchedule.wb.save("May_11.xlsx")
+ 
+"""The __name == "__main__" is used to run the main funtion that runs the entire code. """
 
 if __name__ == "__main__":
-    print(main())
-    
-    
+    main()
