@@ -9,19 +9,21 @@ class People:
     
     """__init__ initializes filename"""
     
-    def __init__(self, filename = "Schedule.xlsx"): #Driver:Dan  Navigator: Arianna
+    def __init__(self, filename = "Schedule.xlsx", userAnswer = ""): #Driver:Dan  Navigator: Arianna
         self.filename = filename
-
+        self.userAnswer = userAnswer
 
     """add_person function checks if the workbook exists, 
     then writes in the workbook. This function then prompts the user in the console
     if they would like to add someone to the schedule, asking what time they can work
     along with asking which day they are available, marking a Y or N depending if that person can work or not.
+    We also added an edge case if someone accidently types something wrong in the Console, 
+    to make sure the prompt is responded to correctly
     
     -Purpose is for business owner or schedule maker to update the schedule without the need
     to go to the excelsheet to do it manually"""
 
-    def add_person(self): #Driver: Jennifer  Navigator: Matt
+    def add_person(self, userAnswer):
         try:
             workbook = openpyxl.load_workbook(self.filename)
         except FileNotFoundError:
@@ -29,16 +31,22 @@ class People:
 
         sheet = workbook.active
         availability = []
-        days_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
-        print("would you like to add someone to the schedule?")
-        userAnswer = input("yes or no: ")
+        days_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']  
         
-        while userAnswer != "no":
+        if userAnswer != "yes" and userAnswer != "no":
+            print("would you like to add someone to the schedule?")
+            userAnswer = input("yes or no: ")
+        
+        while userAnswer != "no" and userAnswer != "yes":
+            userAnswer = input("""Please answer with "yes" or "no": """)
+        if userAnswer == "yes":    
             name = input("Enter Name: ")
             number = input("Time he/she can work:")
         
             for day in days_of_week:
                 answer = input(f"Is {name} available on {day}? (Y/N): ")
+                while answer != "N" and answer != "Y":
+                    answer = input(f"Please answer with(Y/N). Is {name} available on {day}?: ")
                 availability.append("Y" if answer.upper() == 'Y' else '')
 
             sheet.append([name,"", number] + availability)
@@ -47,16 +55,20 @@ class People:
             workbook.close()
             print(f"Person '{name}' added to the Excel sheet '{self.filename}'.")
             
-            userAnswer = input("Would you like to add again?")
-            if userAnswer =="no":
+            userAnswer = input("Would you like to add again?: ")
+            while userAnswer != "yes" and userAnswer != "no":
+                userAnswer = input("""Please respond with "yes" or "no". Would you like to add again?: """)
+            if userAnswer == "yes":
+                people.add_person("yes")
+            elif userAnswer =="no":
                 print("Thank you for using!")
-            
+        elif userAnswer == "no":
+            print("Thank you for using!")
 
 people = People("Schedule.xlsx")
-people.add_person()
+people.add_person("")
             
 
-"""This class reads an availability sheet, and writes a schedule for a week"""
 
 
 class ScheduleMaker:
