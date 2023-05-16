@@ -1,10 +1,12 @@
-import os.path
 from Final import ScheduleMaker
+
+#these assert statements take some assumptions to work. You must use a fresh schedule and May_11 excel file
+
 
 def test_ScheduleMakerClass():
     example = ScheduleMaker()
 
-    # checking headers
+    # Checking headers
     example.write_header()
     assert example.sheet1.cell(row=1, column=2).value == "Monday"
     assert example.sheet1.cell(row=1, column=3).value == "Tuesday"
@@ -12,7 +14,7 @@ def test_ScheduleMakerClass():
     assert example.sheet1.cell(row=1, column=5).value == "Thursday"
     assert example.sheet1.cell(row=1, column=6).value == "Friday"
     
-    # checking time slots
+    # Checking time slots
     example.write_time_slots()
     assert example.sheet1.cell(row=2, column=1).value == "Times"
     assert example.sheet1.cell(row=3, column=1).value == "9:00"
@@ -25,7 +27,14 @@ def test_ScheduleMakerClass():
     assert example.sheet1.cell(row=10, column=1).value == "4:00"
     assert example.sheet1.cell(row=11, column=1).value == "5:00"
 
-
-    # checking name added correctly for schedule
+    # Checking name added correctly for schedule
     example.write_schedule()
-    assert example.sheet1["B4"].value == "Jayla"
+    assert example.sheet1.cell(row=4, column=2).value == "Mathew"
+    assert example.sheet1.cell(row=9, column=2).value == "Jennifer"
+    assert example.sheet1.cell(row=9, column=3).value == "Jennifer"
+    assert example.sheet1.cell(row=6, column=4).value == "Dan"
+    assert example.sheet1.cell(row=8, column=5).value == "Arianna"
+    assert example.sheet1.cell(row=9, column=6).value == "Arianna"
+    assert example.sheet1.cell(row=4, column=6).value == "Mathew"
+
+test_ScheduleMakerClass()
