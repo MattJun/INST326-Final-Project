@@ -1,3 +1,9 @@
+#Arianna Goolcharan, Dan Kallmyer, Jennifer Lee, Mathew Jun
+#Automatic Schedule Maker
+#INST326
+#Professor. Cruz
+#May 17, 2023
+
 import openpyxl
 from openpyxl import Workbook
 
@@ -23,7 +29,7 @@ class People:
     -Purpose is for business owner or schedule maker to update the schedule without the need
     to go to the excelsheet to do it manually"""
 
-    def add_person(self, userAnswer):
+    def add_person(self, userAnswer): #Driver:Jennifer Navigator: Matt 
         try:
             workbook = openpyxl.load_workbook(self.filename)
         except FileNotFoundError:
