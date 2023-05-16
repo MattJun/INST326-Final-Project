@@ -1,7 +1,7 @@
 from Final import ScheduleMaker
 
 #these assert statements take some assumptions to work. You must use a fresh schedule and May_11 excel file
-
+#and you cannot add anyone or it could fail
 
 def test_ScheduleMakerClass():
     example = ScheduleMaker()
